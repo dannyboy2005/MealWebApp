@@ -2,7 +2,7 @@ import _ from "lodash";
 import "./style.css";
 import Search from "./models/Search";
 import * as searchView from "./view/searchView";
-import { elements } from "./view/base";
+import { elements, renderLoader, clearLoader } from "./view/base";
 
 // Global state of the app
 // --Search object
@@ -22,11 +22,13 @@ const controlSearch = async () => {
     // Prepare UI for results
     searchView.clearInput();
     searchView.clearResults();
+    renderLoader(elements.searchRes);
 
     // Search for recipes
     await state.search.getResults();
 
     // render results on the UI
+    clearLoader();
     searchView.renderResults(state.search.result);
   }
 };
